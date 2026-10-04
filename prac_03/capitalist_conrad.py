@@ -1,7 +1,7 @@
 """
 CP1404/CP5632 - Practical
 Capitalist Conrad wants a stock price simulator for a volatile stock.
-The price starts off at $10.00, and, at the end of every day there is
+The price starts off at $10.00, and, at the end of every number_of_days there is
 a 50% chance it increases by 0 to 10%, and
 a 50% chance that it decreases by 0 to 5%.
 If the price rises above $1000, or falls below $0.01, the program should end.
@@ -15,6 +15,7 @@ MIN_PRICE = 0.01
 MAX_PRICE = 1000.0
 INITIAL_PRICE = 10.0
 
+number_of_days = 1
 price = INITIAL_PRICE
 print(f"${price:,.2f}")
 
@@ -32,4 +33,5 @@ while MIN_PRICE <= price <= MAX_PRICE:
         price_change = random.uniform(-MAX_DECREASE, 0)
 
     price *= (1 + price_change)
-    print(f"${price:,.2f}")
+    print(f"On day {number_of_days} price is: ${price:,.2f}")
+    number_of_days += 1
