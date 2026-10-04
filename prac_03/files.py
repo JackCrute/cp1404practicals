@@ -12,7 +12,14 @@ Files
 
 # 2.
 
-in_file = open("name.txt")
-text = in_file.read()
-print(text)
-in_file.close()
+# in_file = open("name.txt")
+# text = in_file.read()
+# print(text)
+# in_file.close()
+
+# 3.
+
+with open("numbers.txt") as in_file:
+    first_number = int(in_file.readline())
+    second_number = int(in_file.readline())
+    print(first_number + second_number)
