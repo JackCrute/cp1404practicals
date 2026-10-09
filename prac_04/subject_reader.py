@@ -10,6 +10,7 @@ def main():
     """Program to load and display subject data from file."""
     data = load_data(FILENAME)
     print(data)
+    display_subject_details(data)
 
 
 def load_data(filename=FILENAME):
@@ -17,18 +18,18 @@ def load_data(filename=FILENAME):
     input_file = open(filename)
     data = []
     for line in input_file:
-        print(line)  # See what a line looks like
-        print(repr(line))  # See what a line really looks like
-        line = line.strip()  # Remove the \n
-        parts = line.split(',')  # Separate the data into its parts
-        print(parts)  # See what the parts look like (notice the integer is a string)
-        # Make the number an integer as part of a new, poorly named, list
+        line = line.strip()
+        parts = line.split(',')
         parts = [parts[0], parts[1], int(parts[2])]
         data.append(parts)
-        print(f"{parts}")  # See if that worked
-        print("----------")
     input_file.close()
     return data
+
+
+def display_subject_details(data):
+    """Display subject, lecturer, and number of students from data."""
+    for record in data:
+        print(f"{record[0]} is taught by {record[1]:12} and has {record[2]:3} students")
 
 
 main()
