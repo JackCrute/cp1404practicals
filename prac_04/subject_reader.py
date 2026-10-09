@@ -7,29 +7,28 @@ FILENAME = "subject_data.txt"
 
 
 def main():
-    """Program to load and display subject data from file."""
-    data = load_data(FILENAME)
-    print(data)
-    display_subject_details(data)
+    """Program to load and display subject subjects from file."""
+    subjects = load_subject_details(FILENAME)
+    display_subject_details(subjects)
 
 
-def load_data(filename=FILENAME):
-    """Read data from file formatted like: subject,lecturer,number of students."""
+def load_subject_details(filename=FILENAME):
+    """Read subjects from file formatted like: subject,lecturer,number of students."""
     input_file = open(filename)
-    data = []
+    records = []
     for line in input_file:
         line = line.strip()
         parts = line.split(',')
-        parts = [parts[0], parts[1], int(parts[2])]
-        data.append(parts)
+        parts[2] = int(parts[2])
+        records.append(parts)
     input_file.close()
-    return data
+    return records
 
 
-def display_subject_details(data):
-    """Display subject, lecturer, and number of students from data."""
-    for record in data:
-        print(f"{record[0]} is taught by {record[1]:12} and has {record[2]:3} students")
+def display_subject_details(subjects):
+    """Display subject, lecturer, and number of students from subjects."""
+    for subject in subjects:
+        print(f"{subject[0]} is taught by {subject[1]:12} and has {subject[2]:3} students")
 
 
 main()
