@@ -15,6 +15,7 @@ def main():
 def load_data(filename=FILENAME):
     """Read data from file formatted like: subject,lecturer,number of students."""
     input_file = open(filename)
+    data = []
     for line in input_file:
         print(line)  # See what a line looks like
         print(repr(line))  # See what a line really looks like
@@ -22,10 +23,12 @@ def load_data(filename=FILENAME):
         parts = line.split(',')  # Separate the data into its parts
         print(parts)  # See what the parts look like (notice the integer is a string)
         # Make the number an integer as part of a new, poorly named, list
-        data = [parts[0], parts[1], int(parts[2])]
-        print(data)  # See if that worked
+        parts = [parts[0], parts[1], int(parts[2])]
+        data.append(parts)
+        print(f"{parts}")  # See if that worked
         print("----------")
     input_file.close()
+    return data
 
 
 main()
