@@ -18,3 +18,6 @@ class Person:
         """Display Person variables as a string."""
         return f"{self.first_name} {self.last_name}, {self.age} year old"
 
+    def __repr__(self):
+        """Display Person variables as the system-view of a string."""
+        return str(vars(self))
