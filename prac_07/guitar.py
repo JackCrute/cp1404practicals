@@ -19,8 +19,16 @@ class Guitar:
         self.cost = cost
 
     def __str__(self):
-        """Return instance values as string."""
+        """Return string representation Guitar."""
         return f"{self.name} ({self.year}) : ${self.cost}"
+
+    def __repr__(self):
+        """Return developer-friendly representation of Guitar"""
+        return f"{vars(self)}"
+
+    def __lt__(self, other):
+        """Determine if Guitar is younger than other based on year attribute."""
+        return self.year < other.year
 
     def get_age(self):
         """Calculate current age of Guitar in years."""
