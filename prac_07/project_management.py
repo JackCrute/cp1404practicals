@@ -15,7 +15,20 @@ def main():
     filename = "projects.txt"
 
     projects = load_projects(filename)
-    print(projects)
+
+    # print(projects)
+
+    save_projects(filename, projects)
+
+
+def save_projects(filename, projects):
+    """Save list of projects to file."""
+    out_file = open(filename, "w")
+    print("Name	Start Date\tPriority\tCost Estimate\tCompletion Percentage", file=out_file)  # Re-add header row
+    for project in projects:
+        line = f"{project.name}\t{project.start_date}\t{project.priority}\t{project.cost_estimate}\t{project.completion_percentage}"
+        print(line, file=out_file)
+    out_file.close()
 
 
 def load_projects(filename):
