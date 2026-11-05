@@ -15,10 +15,22 @@ def main():
     filename = "projects.txt"
 
     projects = load_projects(filename)
+    display_projects(projects)
+    # save_projects(filename, projects)
 
-    # print(projects)
 
-    save_projects(filename, projects)
+def display_projects(projects):
+    """Display incomplete and completed projects sorted by priority."""
+    incomplete_projects = [project for project in projects if project.completion_percentage < 100]
+    incomplete_projects.sort()
+    completed_projects = [project for project in projects if project.completion_percentage == 100]
+    completed_projects.sort()
+    print("Incomplete projects:")
+    for project in incomplete_projects:
+        print(f"\t{project}")
+    print("Completed projects:")
+    for project in completed_projects:
+        print(f"\t{project}")
 
 
 def save_projects(filename, projects):
