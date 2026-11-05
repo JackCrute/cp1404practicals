@@ -3,7 +3,7 @@ CP1404 Practical 7
 Project management program.
 
 Estimated time: 2 hours
-Actual time:
+Actual time: 1 hr 15 min +
 """
 
 from prac_07.project import Project
@@ -16,7 +16,19 @@ def main():
 
     projects = load_projects(filename)
     display_projects(projects)
-    # save_projects(filename, projects)
+    add_project(projects)
+    save_projects(filename, projects)
+
+
+def add_project(projects):
+    """Add new Project to projects."""
+    print("Let's add a new project")
+    name = input("Name: ")
+    start_date = input("Start date (dd/mm/yy): ")  # TODO make this convert into datetime object
+    priority = int(input("Priority: "))
+    cost_estimate = float(input("Cost estimate: $"))
+    completion_percentage = int(input("Percent complete: "))
+    projects.append(Project(name, start_date, priority, cost_estimate, completion_percentage))
 
 
 def display_projects(projects):
