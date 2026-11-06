@@ -3,13 +3,21 @@ CP1404 Practical 7
 Project management program.
 
 Estimated time: 2 hours
-Actual time: 1 hr 15 min + 2hrs 21 min +
+Actual time: 1 hr 15 min + 2hrs 21 min + 30 min
 """
 from operator import attrgetter
 
 from prac_07.project import Project
 
 import datetime
+
+MENU = ("- (L)oad projects \n"
+        "- (S)ave projects \n"
+        "- (D)isplay projects \n"
+        "- (F)ilter projects by date \n"
+        "- (A)dd new project \n"
+        "- (U)pdate project \n"
+        "- (Q)uit")
 
 
 def main():
@@ -18,12 +26,40 @@ def main():
     filename = "projects.txt"
 
     projects = load_projects(filename)
-    display_projects(projects)
-    filter_projects(projects)
-    # add_project(projects)
-    # update_project(projects)
-    # save_projects(filename, projects)
 
+    print(MENU)
+    choice = input(">>> ").upper()
+    while choice != "Q":
+        if choice == "L":
+            filename = input("Enter filename to load from: ")
+            projects = load_projects(filename)
+
+        elif choice == "S":
+            filename = input("Enter filename to save to: ")
+            save_projects(filename, projects)
+
+        elif choice == "D":
+            display_projects(projects)
+
+        elif choice == "F":
+            filter_projects(projects)
+
+        elif choice == "A":
+            add_project(projects)
+
+        elif choice == "U":
+            update_project(projects)
+
+        else:
+            print("Invalid choice.")
+
+        print(MENU)
+        choice = input(">>> ").upper()
+
+    save_confirmation = input(f"Would you like to save to {filename}? ")
+    if save_confirmation == "Yes":
+        save_projects(filename, projects)
+    print("Thank you for using custom-built project management software.")
 
 
 def filter_projects(projects):
