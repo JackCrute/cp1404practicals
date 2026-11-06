@@ -3,7 +3,7 @@ CP1404 Practical 7
 Project management program.
 
 Estimated time: 2 hours
-Actual time: 1 hr 15 min +
+Actual time: 1 hr 15 min + 2hrs 21 min +
 """
 from operator import attrgetter
 
@@ -19,21 +19,34 @@ def main():
 
     projects = load_projects(filename)
     display_projects(projects)
-    add_project(projects)
+    filter_projects(projects)
+    # add_project(projects)
     # update_project(projects)
     # save_projects(filename, projects)
 
-    filter_projects(projects)
 
 
 def filter_projects(projects):
     """Filter projects by start date."""
-    date_string = input("Show projects that start after date (d/m/yyyy): ")
-    filter_date = datetime.datetime.strptime(date_string, "%d/%m/%Y").date()
+    filter_date = get_valid_date("Show projects that start after date (d/m/yyyy): ")
     filtered_projects = [project for project in projects if project.start_date >= filter_date]
     filtered_projects.sort(key=attrgetter("start_date"))
     for project in filtered_projects:
         print(f"{project}")
+
+
+def get_valid_date(prompt):
+    """Get valid date from date string."""
+    is_valid_date = False
+    while not is_valid_date:
+        try:
+            date_string = input(f"{prompt}")
+            date = datetime.datetime.strptime(date_string, "%d/%m/%Y").date()
+            is_valid_date = True
+        except ValueError:
+            print("Invalid date")
+    # noinspection PyUnboundLocalVariable
+    return date
 
 
 def update_project(projects):
@@ -41,11 +54,18 @@ def update_project(projects):
     for project_index, project in enumerate(projects):
         print(f"{project_index} {project}")
 
-    project_choice = int(input("Project choice: "))
-    print(projects[project_choice])
+    is_valid_choice = False
+    while not is_valid_choice:
+        try:
+            project_choice = int(input("Project choice: "))
+            print(projects[project_choice])
+            is_valid_choice = True
+        except KeyError:
+            print("Invalid choice.")
 
     new_percentage = input("New Percentage: ")
     if new_percentage != "":
+        # noinspection PyUnboundLocalVariable
         projects[project_choice].completion_percentage = int(new_percentage)
 
     new_priority = input("New Priority: ")
@@ -57,8 +77,7 @@ def add_project(projects):
     """Add new Project to projects."""
     print("Let's add a new project")
     name = input("Name: ")
-    date_string = input("Start date (d/m/yyyy): ")
-    start_date = datetime.datetime.strptime(date_string, "%d/%m/%Y").date()
+    start_date = get_valid_date("Start date (d/m/yyyy): ")
     priority = int(input("Priority: "))
     cost_estimate = float(input("Cost estimate: $"))
     completion_percentage = int(input("Percent complete: "))
