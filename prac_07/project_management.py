@@ -17,7 +17,25 @@ def main():
     projects = load_projects(filename)
     display_projects(projects)
     add_project(projects)
+    update_project(projects)
     save_projects(filename, projects)
+
+
+def update_project(projects):
+    """Update chosen project completion percentage and priority."""
+    for project_index, project in enumerate(projects):
+        print(f"{project_index} {project}")
+
+    project_choice = int(input("Project choice: "))
+    print(projects[project_choice])
+
+    new_percentage = int(input("New Percentage: "))
+    if new_percentage != "":
+        projects[project_choice].completion_percentage = new_percentage
+
+    new_priority = int(input("New Priority: "))
+    if new_priority != "":
+        projects[project_choice].priority = new_priority
 
 
 def add_project(projects):
