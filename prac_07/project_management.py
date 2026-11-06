@@ -5,6 +5,7 @@ Project management program.
 Estimated time: 2 hours
 Actual time: 1 hr 15 min +
 """
+from operator import attrgetter
 
 from prac_07.project import Project
 
@@ -19,8 +20,20 @@ def main():
     projects = load_projects(filename)
     display_projects(projects)
     add_project(projects)
-    update_project(projects)
-    save_projects(filename, projects)
+    # update_project(projects)
+    # save_projects(filename, projects)
+
+    filter_projects(projects)
+
+
+def filter_projects(projects):
+    """Filter projects by start date."""
+    date_string = input("Show projects that start after date (d/m/yyyy): ")
+    filter_date = datetime.datetime.strptime(date_string, "%d/%m/%Y").date()
+    filtered_projects = [project for project in projects if project.start_date >= filter_date]
+    filtered_projects.sort(key=attrgetter("start_date"))
+    for project in filtered_projects:
+        print(f"{project}")
 
 
 def update_project(projects):
@@ -31,13 +44,13 @@ def update_project(projects):
     project_choice = int(input("Project choice: "))
     print(projects[project_choice])
 
-    new_percentage = int(input("New Percentage: "))
+    new_percentage = input("New Percentage: ")
     if new_percentage != "":
-        projects[project_choice].completion_percentage = new_percentage
+        projects[project_choice].completion_percentage = int(new_percentage)
 
-    new_priority = int(input("New Priority: "))
+    new_priority = input("New Priority: ")
     if new_priority != "":
-        projects[project_choice].priority = new_priority
+        projects[project_choice].priority = int(new_priority)
 
 
 def add_project(projects):
@@ -45,7 +58,6 @@ def add_project(projects):
     print("Let's add a new project")
     name = input("Name: ")
     date_string = input("Start date (d/m/yyyy): ")
-    # Convert date string into datetime object.
     start_date = datetime.datetime.strptime(date_string, "%d/%m/%Y").date()
     priority = int(input("Priority: "))
     cost_estimate = float(input("Cost estimate: $"))
@@ -88,7 +100,7 @@ def load_projects(filename):
     in_file.readline()  # Skip header row
     for line in in_file:
         parts = line.strip().split('\t')
-        # Convert parts[1] into datetime object.
+        # Convert parts[1] into date object.
         start_date = datetime.datetime.strptime(parts[1], "%d/%m/%Y").date()
         projects.append(Project(parts[0], start_date, int(parts[2]), float(parts[3]), int(parts[4])))
     in_file.close()
