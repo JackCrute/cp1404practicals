@@ -3,7 +3,7 @@ CP1404 Practical 7
 Project management program.
 
 Estimated time: 2 hours
-Actual time: 1 hr 15 min + 2hrs 21 min + 30 min
+Actual time: ~4 hours
 """
 from operator import attrgetter
 
@@ -143,7 +143,8 @@ def save_projects(filename, projects):
     for project in projects:
         # Convert datetime object into date string of correct format.
         formatted_start_date = project.start_date.strftime("%d/%m/%Y")
-        line = f"{project.name}\t{formatted_start_date}\t{project.priority}\t{project.cost_estimate}\t{project.completion_percentage}"
+        line = (f"{project.name}\t{formatted_start_date}\t{project.priority}\t{project.cost_estimate}\t"
+                f"{project.completion_percentage}")
         print(line, file=out_file)
     out_file.close()
 
