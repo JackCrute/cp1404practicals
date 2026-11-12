@@ -22,12 +22,18 @@ class ConvertMilesKilometres(App):
 
     def handle_convert(self, value):
         """Handle convert button presses"""
-        result = float(value) * MILES_TO_KM
-        self.output_kilometres = str(result)
+        try:
+            result = float(value) * MILES_TO_KM
+            self.output_kilometres = str(result)
+        except ValueError:
+            self.output_kilometres = "0.0"
 
     def handle_increment(self, value):
         """Increment distance in miles up or down by value."""
-        result = int(self.root.ids.input_miles.text) + value
+        try:
+            result = int(self.root.ids.input_miles.text) + value
+        except ValueError:
+            result = 0 + value
         self.root.ids.input_miles.text = str(result)
 
 
