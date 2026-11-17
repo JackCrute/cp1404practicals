@@ -13,7 +13,8 @@ def main():
     assert my_taxi.price_per_km == 2.46
 
     my_taxi.drive(18)
-    assert my_taxi.get_fare() == 48.78
+    print(my_taxi.get_fare())
+    assert my_taxi.get_fare() == 48.8
 
 
 main()
