@@ -5,7 +5,7 @@ from unreliable_car import UnreliableCar
 
 
 def main():
-    """Test """
+    """Test UnreliableCar class."""
     my_car = UnreliableCar("ford fiesta", 1000, 50)
     # Reliability should print
     print(my_car)
